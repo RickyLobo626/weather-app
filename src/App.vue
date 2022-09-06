@@ -1,15 +1,13 @@
 <template>
-  <city-selector></city-selector>
+  <city-selector @get-city-weather="getCityWeather"></city-selector>
   <div class="weather">
     <weather-display
-      class="container today"
-      :weather-desc="weatherDesc"
       :today-weather="todayWeather"
+      class="container today"
     ></weather-display>
     <weather-display
-      class="container tomorrow"
-      :weather-desc="weatherDesc"
       :tomorrow-weather="tomorrowWeather"
+      class="container tomorrow"
     ></weather-display>
   </div>
 </template>
@@ -18,20 +16,18 @@
 export default {
   data() {
     return {
-      weatherDesc: "Cloudy",
-      todayWeather: {
-        day: "1",
-        temperature: "+28 ºC",
-        wind: "23 km/h",
-      },
-      tomorrowWeather: {
-        day: "2",
-        temperature: "+24 ºC",
-        wind: "23 km/h",
-      },
+      todayWeather: "",
+      tomorrowWeather: "",
     };
   },
-  methods: {},
+  methods: {
+    getCityWeather(data) {
+      this.todayWeather = data[0];
+      this.tomorrowWeather = data[1];
+      this.todayWeather["day"] = "today";
+      this.tomorrowWeather["day"] = "tomorrow";
+    },
+  },
 };
 </script>
 
@@ -41,10 +37,8 @@ export default {
   box-sizing: border-box;
   font-size: 62.5%;
   font-family: "Scada", sans-serif;
-  --very-cold: #456bdc;
-  --cold-temp: #58c3e7;
-  --hot-temp: #ffd000;
-  --very-hot: #ff5900;
+  --min-temp: #58c3e7;
+  --max-temp: #ffb300;
 }
 
 *,
@@ -88,15 +82,12 @@ header {
 }
 
 .city-container {
-  width: 80%;
-
-  padding: 3rem;
+  width: 60%;
+  min-width: 30rem;
   border-radius: 1rem;
+  margin-bottom: 4rem;
 
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 2rem;
+  position: relative;
 }
 
 select {
@@ -105,34 +96,20 @@ select {
   font-family: inherit;
   font-size: 1.8rem;
   outline: none;
-  border: 3px solid var(--very-cold);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   border-radius: 1rem;
   padding: 1rem 2rem;
-}
-
-button {
-  flex-basis: 50%;
-  color: white;
-  flex-grow: 1;
-  background-color: var(--very-cold);
-  cursor: pointer;
-  font-weight: bold;
-  font-family: inherit;
-  font-size: 1.6rem;
-  border: 3px solid transparent;
-
-  border-radius: 1rem;
-  padding: 1rem 2rem;
-  min-width: max-content;
 }
 
 .invalid-msg {
-  color: rgb(249, 188, 239);
+  width: max-content;
+  color: rgb(255, 186, 202);
+  font-weight: bold;
   font-size: 1.8rem;
 
   position: absolute;
-  bottom: -2.2 rem;
-  left: 1rem;
+  bottom: -3rem;
+  left: 5px;
 }
 
 .hidden {
@@ -140,10 +117,9 @@ button {
 }
 
 .weather {
-  gap: 5rem;
-
   display: flex;
   align-items: center;
+  gap: 5rem;
 }
 
 .weather-img {
@@ -193,8 +169,12 @@ button {
   border-bottom: 2px solid black;
 }
 
-.celsius {
-  background-color: var(--hot-temp);
+.temps {
+  display: flex;
+  justify-content: space-between;
+}
+
+.temp {
   font-size: 3.8em;
   font-weight: bold;
 
@@ -204,20 +184,12 @@ button {
   border-radius: 5px;
 }
 
-.very-cold {
-  background-color: var(--very-cold);
+.min {
+  background-color: var(--min-temp);
 }
 
-.cold {
-  background-color: var(--cold-temp);
-}
-
-.hot {
-  background-color: var(--hot-temp);
-}
-
-.very-hot {
-  background-color: var(--very-hot);
+.max {
+  background-color: var(--max-temp);
 }
 
 .wind {

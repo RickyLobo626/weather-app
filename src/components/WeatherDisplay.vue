@@ -1,22 +1,34 @@
 <template>
-  <div>
+  <div v-if="weatherData">
     <img
-      v-if="weatherDesc.includes('sun')"
+      v-if="weatherData.weather?.description.toLowerCase().includes('sun')"
       class="weather-img"
       src="../../src/assets/sunny.png"
       alt="Sun"
     />
     <img
-      v-else-if="weatherDesc.includes('storm')"
+      v-else-if="
+        weatherData.weather?.description.toLowerCase().includes('storm')
+      "
       class="weather-img"
       src="../../src/assets/storm.png"
       alt="Storm"
     />
     <img
-      v-else-if="weatherDesc.includes('rain')"
+      v-else-if="
+        weatherData.weather?.description.toLowerCase().includes('rain')
+      "
       class="weather-img"
       src="../../src/assets/rain.png"
       alt="Rain"
+    />
+    <img
+      v-else-if="
+        weatherData.weather?.description.toLowerCase().includes('less')
+      "
+      class="weather-img"
+      src="../../src/assets/cloudy2.png"
+      alt="Sun and clouds"
     />
     <img
       v-else
@@ -25,34 +37,40 @@
       alt="Clouds"
     />
     <div class="info">
-      <h1 class="day">{{ dayData.day === "1" ? "Today" : "Tomorrow" }}</h1>
-      <p class="description">{{ weatherDesc }}</p>
-      <p class="celsius" :class="celsiusColor">
-        {{ dayData.temperature.replace("+", "") }}
-      </p>
-      <p class="wind">{{ dayData.wind }}</p>
+      <h1 v-if="weatherData.day === 'today'" class="day">Today</h1>
+      <h2 v-else class="day">Tomorrow</h2>
+      <p class="description">{{ weatherData.weather?.description }}</p>
+      <div class="temps">
+        <p class="temp max">
+          {{ roundedMaxTemp }}
+        </p>
+        <p class="temp min">
+          {{ roundedMinTemp }}
+        </p>
+      </div>
+      <p class="wind">{{ windSpeedKm }}</p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["weatherDesc", "todayWeather", "tomorrowWeather"],
+  props: ["todayWeather", "tomorrowWeather"],
 
   computed: {
     // Get the right day for each component
-    dayData() {
+    weatherData() {
       return this.todayWeather || this.tomorrowWeather;
     },
-    celsiusColor() {
-      if (this.dayData.temperature.slice(0, -3) >= 35) {
-        return "very-hot";
-      } else if (this.dayData.temperature.slice(0, -3) > 16) {
-        return "hot";
-      } else if (this.dayData.temperature.slice(0, -3) > 0) {
-        return "cold";
-      }
-      return "very-cold";
+
+    windSpeedKm() {
+      return Math.round(+this.weatherData?.wind_spd * (18 / 5)) + " km/h";
+    },
+    roundedMaxTemp() {
+      return Math.round(+this.weatherData?.max_temp) + " ºC";
+    },
+    roundedMinTemp() {
+      return Math.round(+this.weatherData?.min_temp) + " ºC";
     },
   },
 };
