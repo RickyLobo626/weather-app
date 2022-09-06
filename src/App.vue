@@ -196,6 +196,12 @@ select {
   font-size: 2.4em;
 }
 
+@media (max-width: 37.5em) {
+  :root {
+    font-size: 45%;
+  }
+}
+
 @media (max-width: 25em) {
   :root {
     font-size: 35%;
