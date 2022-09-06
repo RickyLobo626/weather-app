@@ -1,24 +1,12 @@
-# weather-app
+# Weather App
 
-## Project setup
-```
-npm install
-```
+This is a small weather app that I made using the <a href="https://www.weatherbit.io/api">Weatherbit API</a>
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Skills used for this project:
 
-### Compiles and minifies for production
-```
-npm run build
-```
+- Vue.js<br>
+- JavaScript<br>
+- HTML<br>
+- CSS<br>
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<a href="https://rickylobo626.github.io/weather-app/">Live Preview</a>
