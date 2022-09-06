@@ -195,4 +195,10 @@ select {
 .wind {
   font-size: 2.4em;
 }
+
+@media (max-width: 25em) {
+  :root {
+    font-size: 35%;
+  }
+}
 </style>
