@@ -1,8 +1,16 @@
 <template>
   <city-selector></city-selector>
   <div class="weather">
-    <weather-display class="today"></weather-display>
-    <weather-display class="tomorrow"></weather-display>
+    <weather-display
+      class="container today"
+      :weather-desc="weatherDesc"
+      :today-weather="todayWeather"
+    ></weather-display>
+    <weather-display
+      class="container tomorrow"
+      :weather-desc="weatherDesc"
+      :tomorrow-weather="tomorrowWeather"
+    ></weather-display>
   </div>
 </template>
 
@@ -145,7 +153,7 @@ button {
 }
 
 .container {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(210, 210, 210, 0.8);
   border-radius: 2rem;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
