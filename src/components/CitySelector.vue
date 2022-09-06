@@ -1,5 +1,6 @@
 <template>
   <div class="city-container">
+    <h1>Weather App</h1>
     <select v-model="selected" @change="getCityWeather">
       <option disabled value="">Choose a city</option>
       <option v-for="(city, index) in cities" :key="index" :value="city">
@@ -59,7 +60,7 @@ export default {
         .then((response) => {
           this.invalid = false;
           const cityWeather = response.data.data;
-          console.log(cityWeather);
+          // console.log(cityWeather);
           this.$emit("get-city-weather", cityWeather);
         })
         .catch((error) => {

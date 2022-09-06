@@ -52,16 +52,23 @@ export default {
 body {
   height: 100%;
   background-image: url(./assets/bc.jpg);
+  background-repeat: no-repeat;
   background-position: 0 70%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-header {
+h1 {
   color: white;
-  font-size: 5.4rem;
+  width: max-content;
+
+  font-size: 6rem;
   font-weight: bold;
   text-align: center;
 
-  padding: 1rem;
+  padding: 2rem;
 }
 
 .wrapper {
@@ -69,33 +76,33 @@ header {
 }
 
 #app {
+  flex-basis: 70%;
   max-width: 70rem;
-
-  margin: 0 auto;
-  padding: 5rem;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 3rem;
+  gap: 6rem;
 }
 
 .city-container {
-  width: 60%;
   min-width: 30rem;
   border-radius: 1rem;
-  margin-bottom: 4rem;
 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
   position: relative;
 }
 
 select {
-  width: 100%;
-
   font-family: inherit;
   font-size: 1.8rem;
   outline: none;
+
+  width: 100%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   border-radius: 1rem;
   padding: 1rem 2rem;
@@ -112,10 +119,6 @@ select {
   left: 5px;
 }
 
-.hidden {
-  display: none;
-}
-
 .weather {
   display: flex;
   align-items: center;
@@ -125,14 +128,13 @@ select {
 .weather-img {
   align-self: center;
   padding: 3rem;
-  width: 80%;
+  width: 70%;
 }
 
 .container {
   background-color: rgba(210, 210, 210, 0.8);
-  border-radius: 2rem;
-  overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  border-radius: 2rem;
 
   display: flex;
   flex-direction: column;
@@ -171,11 +173,11 @@ select {
 
 .temps {
   display: flex;
-  justify-content: space-between;
+  gap: 1rem;
 }
 
 .temp {
-  font-size: 3.8em;
+  font-size: 3em;
   font-weight: bold;
 
   width: fit-content;
@@ -196,7 +198,11 @@ select {
   font-size: 2.4em;
 }
 
-@media (max-width: 37.5em) {
+.hidden {
+  display: none;
+}
+
+@media (max-width: 43.75em) {
   :root {
     font-size: 45%;
   }

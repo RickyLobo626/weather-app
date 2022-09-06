@@ -1,34 +1,28 @@
 <template>
   <div v-if="weatherData">
     <img
-      v-if="weatherData.weather?.description.toLowerCase().includes('sun')"
+      v-if="itsSunny()"
       class="weather-img"
       src="../../src/assets/sunny.png"
       alt="Sun"
     />
     <img
-      v-else-if="
-        weatherData.weather?.description.toLowerCase().includes('storm')
-      "
+      v-else-if="itsStormy()"
       class="weather-img"
       src="../../src/assets/storm.png"
       alt="Storm"
     />
     <img
-      v-else-if="
-        weatherData.weather?.description.toLowerCase().includes('rain')
-      "
+      v-else-if="itsRainy()"
       class="weather-img"
       src="../../src/assets/rain.png"
       alt="Rain"
     />
     <img
-      v-else-if="
-        weatherData.weather?.description.toLowerCase().includes('less')
-      "
+      v-else-if="itsNotSoCloudy()"
       class="weather-img"
       src="../../src/assets/cloudy2.png"
-      alt="Sun and clouds"
+      alt="Sun and Clouds"
     />
     <img
       v-else
@@ -37,8 +31,8 @@
       alt="Clouds"
     />
     <div class="info">
-      <h1 v-if="weatherData.day === 'today'" class="day">Today</h1>
-      <h2 v-else class="day">Tomorrow</h2>
+      <h2 v-if="weatherData.day === 'today'" class="day">Today</h2>
+      <h3 v-else class="day">Tomorrow</h3>
       <p class="description">{{ weatherData.weather?.description }}</p>
       <div class="temps">
         <p class="temp max">
@@ -71,6 +65,50 @@ export default {
     },
     roundedMinTemp() {
       return Math.round(+this.weatherData?.min_temp) + " ºC";
+    },
+  },
+  methods: {
+    itsSunny() {
+      if (
+        this.weatherData.weather?.description.toLowerCase().includes("sun") ||
+        this.weatherData.weather?.description
+          .toLowerCase()
+          .includes("few clouds") ||
+        this.weatherData.weather?.description
+          .toLowerCase()
+          .includes("scattered clouds")
+      ) {
+        return true;
+      }
+      return false;
+    },
+
+    itsStormy() {
+      if (
+        this.weatherData.weather?.description.toLowerCase().includes("storm")
+      ) {
+        return true;
+      }
+      return false;
+    },
+
+    itsRainy() {
+      if (
+        this.weatherData.weather?.description.toLowerCase().includes("rain")
+      ) {
+        return true;
+      }
+      return false;
+    },
+
+    itsNotSoCloudy() {
+      if (
+        this.weatherData.weather?.description.toLowerCase().includes("less") ||
+        this.weatherData.weather?.description.toLowerCase().includes("broken")
+      ) {
+        return true;
+      }
+      return false;
     },
   },
 };
