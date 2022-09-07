@@ -3,11 +3,11 @@
   <div class="weather">
     <weather-display
       :today-weather="todayWeather"
-      class="container today"
+      class="container big"
     ></weather-display>
     <weather-display
       :tomorrow-weather="tomorrowWeather"
-      class="container tomorrow"
+      class="container medium"
     ></weather-display>
   </div>
 </template>
@@ -24,8 +24,10 @@ export default {
     getCityWeather(data) {
       this.todayWeather = data[0];
       this.tomorrowWeather = data[1];
-      this.todayWeather["day"] = "today";
-      this.tomorrowWeather["day"] = "tomorrow";
+      this.todayWeather["day"] = "Today";
+      this.tomorrowWeather["day"] = "Tomorrow";
+      this.todayWeather["displaySize"] = "big";
+      this.tomorrowWeather["displaySize"] = "medium";
     },
   },
 };
@@ -140,11 +142,11 @@ select {
   flex-direction: column;
 }
 
-.today {
+.big {
   flex-basis: 55%;
 }
 
-.tomorrow {
+.medium {
   flex-basis: 45%;
 }
 
@@ -156,7 +158,7 @@ select {
   gap: 2rem;
 }
 
-.tomorrow .info {
+.medium.info {
   font-size: 80%;
 }
 

@@ -31,8 +31,10 @@
       alt="Clouds"
     />
     <div class="info">
-      <h2 v-if="weatherData.day === 'today'" class="day">Today</h2>
-      <h3 v-else class="day">Tomorrow</h3>
+      <h2 v-if="weatherData.displaySize === 'big'" class="day">
+        {{ weatherData.day }}
+      </h2>
+      <h3 v-else class="day">{{ weatherData.day }}</h3>
       <p class="description">{{ weatherData.weather?.description }}</p>
       <div class="temps">
         <p class="temp max">

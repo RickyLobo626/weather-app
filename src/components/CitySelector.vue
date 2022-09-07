@@ -7,7 +7,7 @@
         {{ city }}
       </option>
     </select>
-    <p class="invalid-msg" :class="[invalid ? '' : 'hidden']">
+    <p class="invalid-msg" :class="[valid ? 'hidden' : '']">
       Sorry, an error has occurred
     </p>
   </div>
@@ -41,7 +41,7 @@ export default {
         "Viseu",
       ],
       selected: "",
-      invalid: false,
+      valid: true,
     };
   },
   methods: {
@@ -58,7 +58,7 @@ export default {
           `https://api.weatherbit.io/v2.0/forecast/daily?city=${cityName}&country=${country}&description&key=${key}`
         )
         .then((response) => {
-          this.invalid = false;
+          this.valid = true;
           const cityWeather = response.data.data;
           // console.log(cityWeather);
           this.$emit("get-city-weather", cityWeather);
@@ -66,7 +66,7 @@ export default {
         .catch((error) => {
           console.log(error);
 
-          this.invalid = true;
+          this.valid = false;
         });
     },
   },
