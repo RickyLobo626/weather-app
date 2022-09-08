@@ -23,7 +23,7 @@ export default {
   methods: {
     getCityWeather(days) {
       this.weatherDays = [];
-      const dayCount = 7;
+      const dayCount = 10;
       for (const [i, day] of days.entries()) {
         if (i === dayCount) break;
         this.weatherDays.push(
@@ -31,8 +31,8 @@ export default {
             day.datetime,
             day.weather.icon,
             day.weather.description,
-            day.low_temp,
             day.max_temp,
+            day.low_temp,
             day.wind_spd
           )
         );
