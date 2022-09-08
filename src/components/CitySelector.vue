@@ -51,7 +51,7 @@ export default {
       const cityName = this.selected.replaceAll(" ", "+");
       const country = "PT";
       const key = "f2b3a442b3cc4cdea8d2612f91e43c7f";
-      // // GET request
+      // GET request
 
       axios
         .get(

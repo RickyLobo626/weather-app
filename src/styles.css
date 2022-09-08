@@ -1,0 +1,198 @@
+:root {
+  height: 100%;
+  box-sizing: border-box;
+  font-size: 62.5%;
+  font-family: "Scada", sans-serif;
+  --min-temp: #72cbe9;
+  --max-temp: #ffb300;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100%;
+  background-image: url(./assets/bc.jpg);
+  background-repeat: no-repeat;
+  background-position: 0 70%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  color: white;
+  width: max-content;
+
+  font-size: 6rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.wrapper {
+  min-width: 50rem;
+}
+
+#app {
+  padding: 3rem;
+  flex-basis: 70%;
+  max-width: 85rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6rem;
+}
+
+.city-container {
+  min-width: 30rem;
+  border-radius: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+}
+
+select {
+  font-family: inherit;
+  font-size: 1.8rem;
+  outline: none;
+
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+}
+
+.invalid-msg {
+  width: max-content;
+  color: rgb(255, 186, 202);
+  font-weight: bold;
+  font-size: 1.8rem;
+
+  position: absolute;
+  bottom: -3rem;
+  left: 5px;
+}
+
+.weather {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  row-gap: 5rem;
+  column-gap: 2rem;
+}
+
+.weather-img {
+  align-self: center;
+  width: 60%;
+}
+
+.container {
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  border-radius: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.big {
+  min-width: 18rem;
+  flex-basis: calc(50% - 4rem);
+  padding: 2rem;
+}
+
+.medium {
+  min-width: 13rem;
+  flex-basis: 15%;
+  font-size: 65%;
+  padding: 1.5rem;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.day {
+  font-size: 2.2em;
+  font-weight: bold;
+}
+
+.description {
+  height: 4rem;
+  font-size: 1.8em;
+  padding-bottom: 1em;
+  border-bottom: 2px solid black;
+}
+
+.temps {
+  display: flex;
+  gap: 1em;
+}
+
+.temp {
+  font-size: 2em;
+  font-weight: bold;
+
+  width: fit-content;
+  white-space: nowrap;
+  padding: 2px 0.5em;
+  border-radius: 5px;
+}
+
+.min {
+  background-color: var(--min-temp);
+}
+
+.max {
+  background-color: var(--max-temp);
+}
+
+.wind {
+  font-size: 1.8em;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 50em) {
+  :root {
+    font-size: 65%;
+  }
+
+  .medium {
+    flex-basis: 35%;
+  }
+}
+
+@media (max-width: 28.5em) {
+  body {
+    background-position: 0;
+  }
+
+  h1 {
+    font-size: 4.8rem;
+  }
+
+  .big {
+    flex-basis: 75%;
+  }
+
+  :root {
+    font-size: 50%;
+  }
+}

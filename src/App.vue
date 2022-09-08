@@ -2,217 +2,42 @@
   <city-selector @get-city-weather="getCityWeather"></city-selector>
   <div class="weather">
     <weather-display
-      :today-weather="todayWeather"
-      class="container big"
-    ></weather-display>
-    <weather-display
-      :tomorrow-weather="tomorrowWeather"
-      class="container medium"
+      class="container"
+      v-for="(weatherDay, i) in weatherDays"
+      :weather-days="weatherDays"
+      :key="i"
+      :day="i"
     ></weather-display>
   </div>
 </template>
 
 <script>
+import WeatherData from "./classes/WeatherData.js";
 export default {
   data() {
     return {
-      todayWeather: "",
-      tomorrowWeather: "",
+      weatherDays: [],
+      day: null,
     };
   },
   methods: {
-    getCityWeather(data) {
-      this.todayWeather = data[0];
-      this.tomorrowWeather = data[1];
-      this.todayWeather["day"] = "Today";
-      this.tomorrowWeather["day"] = "Tomorrow";
-      this.todayWeather["displaySize"] = "big";
-      this.tomorrowWeather["displaySize"] = "medium";
+    getCityWeather(days) {
+      this.weatherDays = [];
+      const dayCount = 7;
+      for (const [i, day] of days.entries()) {
+        if (i === dayCount) break;
+        this.weatherDays.push(
+          new WeatherData(
+            day.datetime,
+            day.weather.icon,
+            day.weather.description,
+            day.low_temp,
+            day.max_temp,
+            day.wind_spd
+          )
+        );
+      }
     },
   },
 };
 </script>
-
-<style>
-:root {
-  height: 100%;
-  box-sizing: border-box;
-  font-size: 62.5%;
-  font-family: "Scada", sans-serif;
-  --min-temp: #58c3e7;
-  --max-temp: #ffb300;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  height: 100%;
-  background-image: url(./assets/bc.jpg);
-  background-repeat: no-repeat;
-  background-position: 0 70%;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-h1 {
-  color: white;
-  width: max-content;
-
-  font-size: 6rem;
-  font-weight: bold;
-  text-align: center;
-
-  padding: 2rem;
-}
-
-.wrapper {
-  min-width: 50rem;
-}
-
-#app {
-  flex-basis: 70%;
-  max-width: 70rem;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6rem;
-}
-
-.city-container {
-  min-width: 30rem;
-  border-radius: 1rem;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  position: relative;
-}
-
-select {
-  font-family: inherit;
-  font-size: 1.8rem;
-  outline: none;
-
-  width: 100%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  border-radius: 1rem;
-  padding: 1rem 2rem;
-}
-
-.invalid-msg {
-  width: max-content;
-  color: rgb(255, 186, 202);
-  font-weight: bold;
-  font-size: 1.8rem;
-
-  position: absolute;
-  bottom: -3rem;
-  left: 5px;
-}
-
-.weather {
-  display: flex;
-  align-items: center;
-  gap: 5rem;
-}
-
-.weather-img {
-  align-self: center;
-  padding: 3rem;
-  width: 70%;
-}
-
-.container {
-  background-color: rgba(210, 210, 210, 0.8);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  border-radius: 2rem;
-
-  display: flex;
-  flex-direction: column;
-}
-
-.big {
-  flex-basis: 55%;
-}
-
-.medium {
-  flex-basis: 45%;
-}
-
-.info {
-  padding: 3em;
-
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.medium.info {
-  font-size: 80%;
-}
-
-.day {
-  font-size: 2.6em;
-  font-weight: bold;
-}
-
-.description {
-  font-size: 2.2em;
-  padding-bottom: 1em;
-  border-bottom: 2px solid black;
-}
-
-.temps {
-  display: flex;
-  gap: 1rem;
-}
-
-.temp {
-  font-size: 3em;
-  font-weight: bold;
-
-  width: fit-content;
-  white-space: nowrap;
-  padding: 0 1rem;
-  border-radius: 5px;
-}
-
-.min {
-  background-color: var(--min-temp);
-}
-
-.max {
-  background-color: var(--max-temp);
-}
-
-.wind {
-  font-size: 2.4em;
-}
-
-.hidden {
-  display: none;
-}
-
-@media (max-width: 43.75em) {
-  :root {
-    font-size: 45%;
-  }
-}
-
-@media (max-width: 25em) {
-  :root {
-    font-size: 35%;
-  }
-}
-</style>

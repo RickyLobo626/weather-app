@@ -1,41 +1,22 @@
 <template>
-  <div v-if="weatherData">
+  <div
+    v-if="this.weatherDays"
+    :class="[isToday() || isTomorrow() ? 'big' : 'medium']"
+  >
     <img
-      v-if="itsSunny()"
       class="weather-img"
-      src="../../src/assets/sunny.png"
-      alt="Sun"
-    />
-    <img
-      v-else-if="itsStormy()"
-      class="weather-img"
-      src="../../src/assets/storm.png"
-      alt="Storm"
-    />
-    <img
-      v-else-if="itsRainy()"
-      class="weather-img"
-      src="../../src/assets/rain.png"
-      alt="Rain"
-    />
-    <img
-      v-else-if="itsNotSoCloudy()"
-      class="weather-img"
-      src="../../src/assets/cloudy2.png"
-      alt="Sun and Clouds"
-    />
-    <img
-      v-else
-      class="weather-img"
-      src="../../src/assets/cloudy.png"
-      alt="Clouds"
+      :src="'https://www.weatherbit.io/static/img/icons/' + image + '.png'"
+      alt="weather"
     />
     <div class="info">
-      <h2 v-if="weatherData.displaySize === 'big'" class="day">
-        {{ weatherData.day }}
+      <h2 v-if="isToday" class="day">
+        {{ getDay() }}
       </h2>
-      <h3 v-else class="day">{{ weatherData.day }}</h3>
-      <p class="description">{{ weatherData.weather?.description }}</p>
+      <h3 v-else-if="isTomorrow" class="day">{{ getDay() }}</h3>
+      <h4 v-else class="day">{{ getDay() }}</h4>
+      <p class="description">
+        {{ weatherDay.weatherDesc }}
+      </p>
       <div class="temps">
         <p class="temp max">
           {{ roundedMaxTemp }}
@@ -51,66 +32,37 @@
 
 <script>
 export default {
-  props: ["todayWeather", "tomorrowWeather"],
+  props: ["weatherDays", "day"],
 
   computed: {
-    // Get the right day for each component
-    weatherData() {
-      return this.todayWeather || this.tomorrowWeather;
+    image() {
+      return this.weatherDay.icon;
     },
 
+    weatherDay() {
+      return this.weatherDays[this.day];
+    },
     windSpeedKm() {
-      return Math.round(+this.weatherData?.wind_spd * (18 / 5)) + " km/h";
+      return Math.round(+this.weatherDay?.windSpeed * (18 / 5)) + " km/h";
     },
     roundedMaxTemp() {
-      return Math.round(+this.weatherData?.max_temp) + " ºC";
+      return Math.round(+this.weatherDay?.maxTemp) + " ºC";
     },
     roundedMinTemp() {
-      return Math.round(+this.weatherData?.min_temp) + " ºC";
+      return Math.round(+this.weatherDay?.minTemp) + " ºC";
     },
   },
   methods: {
-    itsSunny() {
-      if (
-        this.weatherData.weather?.description.toLowerCase().includes("sun") ||
-        this.weatherData.weather?.description
-          .toLowerCase()
-          .includes("few clouds") ||
-        this.weatherData.weather?.description
-          .toLowerCase()
-          .includes("scattered clouds")
-      ) {
-        return true;
-      }
-      return false;
+    isToday() {
+      return this.day === 0;
     },
-
-    itsStormy() {
-      if (
-        this.weatherData.weather?.description.toLowerCase().includes("storm")
-      ) {
-        return true;
-      }
-      return false;
+    isTomorrow() {
+      return this.day === 1;
     },
-
-    itsRainy() {
-      if (
-        this.weatherData.weather?.description.toLowerCase().includes("rain")
-      ) {
-        return true;
-      }
-      return false;
-    },
-
-    itsNotSoCloudy() {
-      if (
-        this.weatherData.weather?.description.toLowerCase().includes("less") ||
-        this.weatherData.weather?.description.toLowerCase().includes("broken")
-      ) {
-        return true;
-      }
-      return false;
+    getDay() {
+      if (this.day === 0) return "Today";
+      else if (this.day === 1) return "Tomorrow";
+      return this.weatherDay.date;
     },
   },
 };
