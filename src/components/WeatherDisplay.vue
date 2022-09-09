@@ -3,29 +3,33 @@
     v-if="this.weatherDays"
     :class="[isToday() || isTomorrow() ? 'big' : 'medium']"
   >
-    <img
-      class="weather-img"
-      :src="'https://www.weatherbit.io/static/img/icons/' + image + '.png'"
-      alt="weather"
-    />
-    <div class="info">
-      <h2 v-if="isToday" class="day">
+    <div class="img-bc flex jc-center">
+      <img
+        class="weather-img"
+        :src="'https://www.weatherbit.io/static/img/icons/' + image + '.png'"
+        alt="weather"
+      />
+    </div>
+    <div class="info flex column">
+      <h2 v-if="isToday()" class="day">
         {{ getDay() }}
       </h2>
-      <h3 v-else-if="isTomorrow" class="day">{{ getDay() }}</h3>
+      <h3 v-else-if="isTomorrow()" class="day">{{ getDay() }}</h3>
       <h4 v-else class="day">{{ getDay() }}</h4>
-      <p class="description">
+      <p class="description flex ai-center">
         {{ weatherDay.weatherDesc }}
       </p>
-      <div class="temps">
-        <p class="temp max">
-          {{ roundedMaxTemp }}
-        </p>
-        <p class="temp min">
-          {{ roundedMinTemp }}
-        </p>
+      <div class="numbers flex column">
+        <div class="temps flex column bold">
+          <p class="temp max">
+            {{ roundedMaxTemp }}
+          </p>
+          <p class="temp min">
+            {{ roundedMinTemp }}
+          </p>
+        </div>
+        <p class="wind">{{ windSpeedKm }}</p>
       </div>
-      <p class="wind">{{ windSpeedKm }}</p>
     </div>
   </div>
 </template>

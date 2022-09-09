@@ -1,13 +1,13 @@
 <template>
-  <div class="city-container">
-    <h1>Weather App</h1>
+  <div class="city-container flex column ai-center">
+    <h1 class="bold">Weather App</h1>
     <select v-model="selected" @change="getCityWeather">
       <option disabled value="">Choose a city</option>
       <option v-for="(city, index) in cities" :key="index" :value="city">
         {{ city }}
       </option>
     </select>
-    <p class="invalid-msg" :class="[valid ? 'hidden' : '']">
+    <p class="invalid-msg bold" :class="[valid ? 'hidden' : '']">
       Sorry, an error has occurred
     </p>
   </div>

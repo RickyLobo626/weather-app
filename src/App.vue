@@ -1,8 +1,8 @@
 <template>
   <city-selector @get-city-weather="getCityWeather"></city-selector>
-  <div class="weather">
+  <div class="weather-grid jc-center">
     <weather-display
-      class="container"
+      class="container flex column"
       v-for="(weatherDay, i) in weatherDays"
       :weather-days="weatherDays"
       :key="i"
