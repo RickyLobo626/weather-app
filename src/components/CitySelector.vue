@@ -1,6 +1,6 @@
 <template>
   <div class="city-container flex column ai-center">
-    <h1 class="bold">Weather App</h1>
+    <h1 class="logo">Weather App</h1>
     <select v-model="selected" @change="getCityWeather">
       <option disabled value="">Choose a city</option>
       <option v-for="(city, index) in cities" :key="index" :value="city">
