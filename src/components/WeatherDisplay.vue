@@ -1,7 +1,7 @@
 <template>
   <div
-    v-if="this.weatherDays"
-    :class="[isToday() || isTomorrow() ? 'big' : 'medium']"
+    v-if="this.firstTwoDays || this.otherDays"
+    :class="[isToday() || isTomorrow() ? 'big' : 'small']"
   >
     <div class="img-bc flex jc-center">
       <img
@@ -36,7 +36,7 @@
 
 <script>
 export default {
-  props: ["weatherDays", "day"],
+  props: ["firstTwoDays", "otherDays", "day"],
 
   computed: {
     image() {
@@ -44,7 +44,9 @@ export default {
     },
 
     weatherDay() {
-      return this.weatherDays[this.day];
+      // Get the right day for each component
+      if (this.firstTwoDays) return this.firstTwoDays[this.day];
+      return this.otherDays[this.day];
     },
     windSpeedKm() {
       return Math.round(+this.weatherDay?.windSpeed * (18 / 5)) + " km/h";
@@ -58,14 +60,14 @@ export default {
   },
   methods: {
     isToday() {
-      return this.day === 0;
+      return this.day === 0 && this.firstTwoDays;
     },
     isTomorrow() {
-      return this.day === 1;
+      return this.day === 1 && this.firstTwoDays;
     },
     getDay() {
-      if (this.day === 0) return "Today";
-      else if (this.day === 1) return "Tomorrow";
+      if (this.isToday()) return "Today";
+      else if (this.isTomorrow()) return "Tomorrow";
       return this.weatherDay.date;
     },
   },
