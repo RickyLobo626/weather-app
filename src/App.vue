@@ -9,7 +9,7 @@
       :day="i"
     ></weather-display>
   </section>
-  <section class="future grid">
+  <section class="future">
     <weather-display
       class="container flex column"
       v-for="(otherDay, i) in otherDays"

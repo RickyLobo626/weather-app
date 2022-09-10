@@ -46,8 +46,8 @@ body {
   height: 100%;
   background-color: #5ebad8;
   background-image: url(./assets/bc.jpg);
+  background-position: 0% 50%;
   background-repeat: repeat;
-  background-position: 0 10%;
 }
 
 section,
@@ -114,24 +114,21 @@ select {
 }
 
 .now {
-  flex-wrap: wrap;
   gap: 3rem;
 }
 
 .future {
   max-width: 90rem;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 2rem;
 }
 
 .big {
   min-width: 25rem;
   flex-basis: 35rem;
   font-size: 1.2rem;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: 2rem;
 }
 
 .info {
@@ -143,20 +140,12 @@ select {
   font-size: 2em;
 }
 
-.small .day {
-  font-size: 1.6em;
-}
-
 .description {
   font-size: 1.8em;
   flex-basis: 7rem;
   line-height: 1.5;
   padding-bottom: 5px;
   border-bottom: 1px solid black;
-}
-
-.small .description {
-  font-size: 1.6em;
 }
 
 .numbers {
@@ -186,21 +175,53 @@ select {
 }
 
 .wind {
+  font-size: 1.8em;
+}
+
+.small {
+  font-size: 0.9rem;
+}
+
+.small .day {
+  font-size: 1.8em;
+}
+
+.small .description {
+  font-size: 1.6em;
+}
+
+.small .temp {
   font-size: 2em;
+}
+
+.small .wind {
+  font-size: 1.6em;
 }
 
 @media (max-width: 50em) {
   :root {
     font-size: 50%;
   }
-}
 
-@media (max-width: 32em) {
-  .small {
-    font-size: 0.9rem;
+  body {
+    background-position: 3% 50%;
   }
 
-  .grid {
+  .small {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 28em) {
+  body {
+    background-position: 3% 46%;
+  }
+
+  .now {
+    flex-wrap: wrap;
+  }
+
+  .future {
     grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
   }
 
