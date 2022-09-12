@@ -3,31 +3,32 @@
     v-if="this.firstTwoDays || this.otherDays"
     :class="[isToday() || isTomorrow() ? 'big' : 'small']"
   >
-    <div class="img-bc flex jc-center">
+    <div class="img-container flex jc-center">
       <img
         class="weather-img"
         :src="'https://www.weatherbit.io/static/img/icons/' + image + '.png'"
         alt="weather"
       />
     </div>
+
     <div class="info flex column">
-      <h2 v-if="isToday()" class="day">
-        {{ getDay() }}
-      </h2>
-      <h3 v-else-if="isTomorrow()" class="day">{{ getDay() }}</h3>
-      <h4 v-else class="day">{{ getDay() }}</h4>
-      <p class="description flex ai-center">
-        {{ weatherDay.weatherDesc }}
-      </p>
-      <div class="numbers flex column">
-        <div class="temps flex column bold">
-          <p class="temp max">
-            {{ roundedMaxTemp }}
-          </p>
-          <p class="temp min">
-            {{ roundedMinTemp }}
-          </p>
-        </div>
+      <div class="info--text flex column">
+        <h2 v-if="isToday()" class="day">
+          {{ getDay() }}
+        </h2>
+        <h3 v-else-if="isTomorrow()" class="day">{{ getDay() }}</h3>
+        <h4 v-else class="day">{{ getDay() }}</h4>
+        <p class="description">
+          {{ weatherDay.weatherDesc }}
+        </p>
+      </div>
+      <div class="info--numbers flex column">
+        <p class="temp max bold">
+          {{ roundedMaxTemp }}
+        </p>
+        <p class="temp min bold">
+          {{ roundedMinTemp }}
+        </p>
         <p class="wind">{{ windSpeedKm }}</p>
       </div>
     </div>

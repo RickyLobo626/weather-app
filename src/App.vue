@@ -2,7 +2,7 @@
   <city-selector @get-city-weather="getCityWeather"></city-selector>
   <section class="now flex jc-center">
     <weather-display
-      class="container flex column"
+      class="weather-component flex column"
       v-for="(firstDay, i) in firstTwoDays"
       :first-two-days="firstTwoDays"
       :key="i"
@@ -11,7 +11,7 @@
   </section>
   <section class="future">
     <weather-display
-      class="container flex column"
+      class="weather-component flex column"
       v-for="(otherDay, i) in otherDays"
       :other-days="otherDays"
       :key="i"
