@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import CitySelector from "./components/CitySelector.vue";
 import WeatherDisplay from "./components/WeatherDisplay.vue";
-import "./styles.css";
+import "./assets/css/style.css";
 
 const app = createApp(App);
 
