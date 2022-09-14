@@ -51,23 +51,24 @@ export default {
       const cityName = this.selected.replaceAll(" ", "+");
       const country = "PT";
       const key = "f2b3a442b3cc4cdea8d2612f91e43c7f";
+
       // GET request
-
-      axios
-        .get(
-          `https://api.weatherbit.io/v2.0/forecast/daily?city=${cityName}&country=${country}&description&key=${key}`
-        )
-        .then((response) => {
+      const getData = async function (url) {
+        try {
+          const response = await axios.get(url);
+          const cityWeather = await response.data.data;
           this.valid = true;
-          const cityWeather = response.data.data;
-          // console.log(cityWeather);
           this.$emit("get-city-weather", cityWeather);
-        })
-        .catch((error) => {
-          console.log(error);
-
+        } catch (err) {
           this.valid = false;
-        });
+          console.error(err.message);
+        }
+      };
+
+      getData.call(
+        this,
+        `https://api.weatherbit.io/v2.0/forecast/daily?city=${cityName}&country=${country}&description&key=${key}`
+      );
     },
   },
 };
